@@ -1,0 +1,23 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: darwin-custom-collector
+  namespace: monitoring-logging
+  labels:
+    app: darwin-custom-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: darwin-custom-collector
+  template:
+    metadata:
+      labels:
+        app: darwin-custom-collector
+    spec:
+      containers:
+      - name: darwin-custom-collector
+        image: avi17/ecommerce-backend:v18
+        ports:
+        - containerPort: 80

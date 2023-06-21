@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaindeck-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chaindeck-api
+  template:
+    metadata:
+      labels:
+        app: chaindeck-api
+    spec:
+      containers:
+        - name: chaindeck-api
+          image: avi17/chaindeck-api:v52
+          ports:
+            - containerPort: 3030
+          env:
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: JWT_SECRET_KEY
+            - name: JWT_REFRESH_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: JWT_REFRESH_SECRET_KEY
+            - name: CLICKHOUSE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: CLICKHOUSE_URL
+            - name: CLICKHOUSE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: CLICKHOUSE_USER
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: CLICKHOUSE_PASSWORD
+            - name: PROMETHEUS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: PROMETHEUS_URL
+            # - name: DATABASE_URL
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: my-secrets
+            #       key: DATABASE_URL
+            - name: API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: API_URL
+            # - name: EMAIL_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: my-secrets
+            #       key: EMAIL_KEY
+            - name: EMAIL_KEY
+              value: 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
+            - name: DATABASE_URL
+              value: postgresql://postgres:nxv3teFKg5@chaindeck-postgresql/chaindeck
+                

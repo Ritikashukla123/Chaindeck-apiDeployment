@@ -63,8 +63,6 @@ spec:
             #     secretKeyRef:
             #       name: my-secrets
             #       key: EMAIL_KEY
-            - name: EMAIL_KEY
-              value: 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
             - name: DATABASE_URL
               value: postgresql://postgres:nxv3teFKg5@chaindeck-postgresql/chaindeck
                 
